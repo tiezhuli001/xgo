@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	cmd_exec "github.com/xhd2015/xgo/support/cmd"
+	"github.com/xhd2015/xgo/support/fileutil"
 	"github.com/xhd2015/xgo/support/osinfo"
 )
 
@@ -137,7 +138,8 @@ func downloadGo(cmd string, version string) error {
 		if err != nil {
 			return err
 		}
-		err = os.Rename(filepath.Join(goTmpDir, "go"), goDirName)
+		// err = os.Rename(filepath.Join(goTmpDir, "go"), goDirName)
+		err = fileutil.MoveFile(filepath.Join(goTmpDir, "go"), goDirName)
 		if err != nil {
 			return err
 		}

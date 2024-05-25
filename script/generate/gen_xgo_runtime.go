@@ -1,10 +1,10 @@
 package main
 
 import (
-	"os"
 	"path/filepath"
 
 	"github.com/xhd2015/xgo/support/filecopy"
+	"github.com/xhd2015/xgo/support/fileutil"
 )
 
 func genXgoRuntime(rootDir string) error {
@@ -15,7 +15,8 @@ func genXgoRuntime(rootDir string) error {
 	if err != nil {
 		return err
 	}
-	err = os.Rename(filepath.Join(genRuntimeDir, "go.mod"), filepath.Join(genRuntimeDir, "go.mod.txt"))
+	// err = os.Rename(filepath.Join(genRuntimeDir, "go.mod"), filepath.Join(genRuntimeDir, "go.mod.txt"))
+	err = fileutil.MoveFile(filepath.Join(genRuntimeDir, "go.mod"), filepath.Join(genRuntimeDir, "go.mod.txt"))
 	if err != nil {
 		return err
 	}

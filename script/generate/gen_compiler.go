@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/xhd2015/xgo/support/filecopy"
+	"github.com/xhd2015/xgo/support/fileutil"
 )
 
 func generateCompilerPatch(rootDir string) error {
@@ -35,7 +36,8 @@ func generateCompilerPatch(rootDir string) error {
 		if d.IsDir() || !strings.HasSuffix(path, ".go") {
 			return nil
 		}
-		return os.Rename(path, path+".txt")
+		// return os.Rename(path, path+".txt")
+		return fileutil.MoveFile(path, path+".txt")
 	})
 	if err != nil {
 		return err

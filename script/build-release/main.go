@@ -12,6 +12,7 @@ import (
 	"github.com/xhd2015/xgo/script/build-release/revision"
 	"github.com/xhd2015/xgo/support/cmd"
 	"github.com/xhd2015/xgo/support/filecopy"
+	"github.com/xhd2015/xgo/support/fileutil"
 	"github.com/xhd2015/xgo/support/git"
 	"github.com/xhd2015/xgo/support/goinfo"
 	"github.com/xhd2015/xgo/support/osinfo"
@@ -340,13 +341,13 @@ func buildBinaryRelease(dir string, srcDir string, version string, goos string, 
 			if installCopy {
 				err = filecopy.CopyFile(filepath.Join(tmpDir, baseNameExe), filepath.Join(binDir, toBaseNameExe))
 			} else {
-				err = os.Rename(filepath.Join(tmpDir, baseNameExe), filepath.Join(binDir, toBaseNameExe))
+				// err = os.Rename(filepath.Join(tmpDir, baseNameExe), filepath.Join(binDir, toBaseNameExe))
+				err = fileutil.MoveFile(filepath.Join(tmpDir, baseNameExe), filepath.Join(binDir, toBaseNameExe))
 			}
 			if err != nil {
 				return err
 			}
 		}
-
 		xgoExeName := xgoBaseNameExe
 		_, lookPathErr := exec.LookPath(xgoExeName)
 		if lookPathErr != nil {
@@ -365,7 +366,8 @@ func buildBinaryRelease(dir string, srcDir string, version string, goos string, 
 
 	// mv the release to dir
 	targetArchive := filepath.Join(dir, fmt.Sprintf("xgo%s-%s-%s.tar.gz", version, goos, goarch))
-	err = os.Rename(archive, targetArchive)
+	// err = os.Rename(archive, targetArchive)
+	err = fileutil.MoveFile(archive, targetArchive)
 	if err != nil {
 		return err
 	}
