@@ -238,7 +238,7 @@ func loadDependency(goroot string, goBinary string, goVersion *goinfo.GoVersion,
 			if err != nil {
 				return nil, err
 			}
-			// err = os.Rename(filepath.Join(tmpRuntime, "go.mod.txt"), filepath.Join(tmpRuntime, "go.mod"))
+
 			err = fileutil.MoveFile(filepath.Join(tmpRuntime, "go.mod.txt"), filepath.Join(tmpRuntime, "go.mod"))
 			if err != nil {
 				return nil, err

@@ -341,7 +341,6 @@ func buildBinaryRelease(dir string, srcDir string, version string, goos string, 
 			if installCopy {
 				err = filecopy.CopyFile(filepath.Join(tmpDir, baseNameExe), filepath.Join(binDir, toBaseNameExe))
 			} else {
-				// err = os.Rename(filepath.Join(tmpDir, baseNameExe), filepath.Join(binDir, toBaseNameExe))
 				err = fileutil.MoveFile(filepath.Join(tmpDir, baseNameExe), filepath.Join(binDir, toBaseNameExe))
 			}
 			if err != nil {
@@ -366,7 +365,6 @@ func buildBinaryRelease(dir string, srcDir string, version string, goos string, 
 
 	// mv the release to dir
 	targetArchive := filepath.Join(dir, fmt.Sprintf("xgo%s-%s-%s.tar.gz", version, goos, goarch))
-	// err = os.Rename(archive, targetArchive)
 	err = fileutil.MoveFile(archive, targetArchive)
 	if err != nil {
 		return err

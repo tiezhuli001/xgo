@@ -36,7 +36,7 @@ func generateCompilerPatch(rootDir string) error {
 		if d.IsDir() || !strings.HasSuffix(path, ".go") {
 			return nil
 		}
-		// return os.Rename(path, path+".txt")
+
 		return fileutil.MoveFile(path, path+".txt")
 	})
 	if err != nil {

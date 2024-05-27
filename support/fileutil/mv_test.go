@@ -23,6 +23,7 @@ func TestMoveFile(t *testing.T) {
 					return "", "", nil, err
 				}
 				srcPath := srcFile.Name()
+
 				destPath := srcFile.Name() + "_dest"
 				_ = os.Remove(srcPath) // remove the source file to mimic source file does not exist
 				cleanup := func() {
@@ -39,10 +40,14 @@ func TestMoveFile(t *testing.T) {
 				if err != nil {
 					return "", "", nil, err
 				}
+				defer srcFile.Close()
+
 				destFile, err := os.CreateTemp("", "dest")
 				if err != nil {
 					return "", "", nil, err
 				}
+				defer destFile.Close()
+
 				cleanup := func() {
 					// clean up temp files
 					_ = os.Remove(srcFile.Name())
@@ -58,7 +63,9 @@ func TestMoveFile(t *testing.T) {
 				if err != nil {
 					return "", "", nil, err
 				}
+				defer srcFile.Close()
 				srcPath := srcFile.Name()
+
 				destPath := srcPath + ".dest"
 				cleanup := func() {
 					_ = os.Remove(srcPath)
@@ -81,6 +88,8 @@ func TestMoveFile(t *testing.T) {
 					if err != nil {
 						return "", "", nil, err
 					}
+					defer srcFile.Close()
+
 					srcPath := srcFile.Name()
 					destPath := filepath.Join(dir, filepath.Base(srcPath))
 					cleanup := func() {
@@ -93,7 +102,9 @@ func TestMoveFile(t *testing.T) {
 					if err != nil {
 						return "", "", nil, err
 					}
+					defer srcFile.Close()
 					srcPath := srcFile.Name()
+
 					// Create destination directory in current working directory
 					cwd, err := os.Getwd()
 					if err != nil {

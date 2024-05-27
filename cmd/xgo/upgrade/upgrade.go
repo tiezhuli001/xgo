@@ -130,7 +130,7 @@ func Upgrade(installDir string) error {
 			if !file.IsDir() && !strings.HasSuffix(name, exeSuffix) {
 				targetName += exeSuffix
 			}
-			// err = os.Rename(filepath.Join(tmpUnzip, name), filepath.Join(installDir, targetName))
+
 			err = fileutil.MoveFile(filepath.Join(tmpUnzip, name), filepath.Join(installDir, targetName))
 			if err != nil {
 				return err
